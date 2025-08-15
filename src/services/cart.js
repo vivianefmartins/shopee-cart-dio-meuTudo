@@ -23,8 +23,35 @@ async function deleteItem(userCart, name){
 }
 
 // ->remover um item - diminui um item
-async function removeItem(userCart, index){
+async function removeItem(userCart, item){
+    /*
+    // transforma o indice visual do usuário para o índice do backend
+    const deleteIndex = index - 1;
 
+    if(index >= 0 && index < userCart.length) {
+        userCart.splice(deleteIndex, 1);
+    }
+    */
+
+    //implementando esta função - modificando o que foi feito acima - remover um item ou excluir por completo
+    const indexFound = userCart.findIndex((p) => p.name === item.name); // achar o index do item
+
+    // caso não encontre o item
+    if(indexFound == -1){
+        console.log("item não encontrado")
+        return; //para ele simplesmente sair da função
+    }
+
+    // item > 1 - subtrair 1 item, item = 1 - deletar 1 item
+    if(userCart[indexFound].quantity > 1){
+        userCart[indexFound].quantity -= 1
+        return;
+    }
+
+    if(userCart[indexFound].quantity == 1){
+        userCart.splice(indexFound, 1);
+        return;
+    }
 }
 
 // ->mostrar o carrinho do usuário
